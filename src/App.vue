@@ -6,7 +6,8 @@
       <h2>購物車</h2>
       <ul>
         <li v-for="(item, index) in cart" :key="index">
-          {{ item.name }} - ${{ item.price }}
+          {{ item.name }}
+          ${{ item.price }}
         </li>
       </ul>
       <p>總金額：${{ totalPrice }}</p>
@@ -17,12 +18,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import ProductList from './components/ProductList.vue'
-
-const products = ref([
-  { id: 1, name: '草莓蛋糕', price: 100 },
-  { id: 2, name: '巧克力布朗尼', price: 120 },
-  { id: 3, name: '檸檬塔', price: 90 }
-])
+import { products as productData } from './products.js'
+const products = ref(productData)
 
 const cart = ref([])
 
@@ -44,7 +41,6 @@ const totalPrice = computed(() => {
 
 .product-list {
   flex: 2;
-  padding-right: 20px;
   border-right: 1px solid #ccc;
 }
 
@@ -54,6 +50,11 @@ const totalPrice = computed(() => {
 
 .cart {
   flex: 1;
-  padding-left: 20px;
+  padding-left: 10px;
+  text-decoration: none;
+}
+.cart ul{
+  list-style-type: none;
+  padding: 0px;
 }
 </style>
