@@ -21,6 +21,10 @@
             <p class="product-category">{{ item.category}}</p>
             <p class="product-name">{{ item.name }}</p>
             <p class="product-price">${{ item.price.toFixed(2) }}</p>
+            <p v-if="getQuantity(item.id) > 0">
+              已加入：{{ getQuantity(item.id) }} 件
+            </p>
+
           </div>
         </div>
       </div>
@@ -31,8 +35,13 @@
   
   defineProps({
     products: Array,
-    addToCart: Function
+    addToCart: Function,
+    cart: Array
   })
+  const getQuantity = (id) => {
+  const item = cart.find((i) => i.id === id)
+  return item ? item.quantity : 0
+  }
   </script>
   
   <style scoped>
@@ -50,7 +59,6 @@
   }
   .image-container {
     position: relative;
-    width: 100%;
   }
 
   .product-image {

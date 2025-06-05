@@ -7,15 +7,19 @@
       <ul>
         <li v-for="item in cart" :key="item.id">
           {{ item.name }}
-          <div style="display:flex;gap:10px;">
-            <p style="color:#ff6f61";>{{ item.quantity }}x</p>
-            <p style="color:#ff6f61";>@ ${{ item.price }}</p>
-            <p>${{ item.price*item.quantity }}</p>
+          <div style="display:flex;gap:10px">
+            <p style="color:#ff6f61">{{ item.quantity }}x</p>
+            <p style="color:#72604d">@ ${{ item.price.toFixed(2) }}</p>
+            <p style="color:#533f2a">${{ item.price*item.quantity }}</p>
           </div>
           
         </li>
       </ul>
-      <p>總金額：${{ totalPrice }}</p>
+      <div class="cart-price" style="display: flex;justify-content: space-between;align-items: center;">
+        <p>Order Total</p>
+        <h4>${{ totalPrice }}</h4>
+      </div>
+      
     </div>
   </div>
 </template>
@@ -35,6 +39,11 @@ const addToCart = (item) => {
   } else {
     cart.value.push({ ...item, quantity: 1 });
   }
+}
+
+const getQuantity = (id) => {
+  const found = cart.value.find(item => item.id === id)
+  return found ? found.quantity : 0
 }
 
 const totalPrice = computed(() => {
