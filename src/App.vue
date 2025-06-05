@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <ProductList :products="products" :addToCart="addToCart" />
+    <ProductList :products="products" :addToCart="addToCart" :decreaseQuantity="decreaseQuantity" :cart="cart"/>
 
     <div class="cart">
       <h2>購物車</h2>
@@ -38,6 +38,19 @@ const addToCart = (item) => {
     existingItem.quantity += 1;
   } else {
     cart.value.push({ ...item, quantity: 1 });
+  }
+}
+const decreaseQuantity = (item) => {
+  // const found = cart.find(i => i.id === item.id)
+  const found = cart.value.find((cartItem) => cartItem.id === item.id);
+  if (found) {
+    if (found.quantity > 1) {
+      found.quantity -= 1
+    } else {
+      // 數量為 1 點減號時，移出購物車
+      const index = cart.findIndex(i => i.id === item.id)
+      cart.splice(index, 1)
+    }
   }
 }
 

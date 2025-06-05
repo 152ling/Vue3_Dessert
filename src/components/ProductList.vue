@@ -14,16 +14,21 @@
               <source :srcset="item.image.mobile" media="(max-width: 767px)" />
               <img :src="item.image.thumbnail" :alt="item.name" class="product-image" />
             </picture>
-            <button class="image-btn" @click="addToCart(item)">Add to Cart</button>
+            <button v-if="getQuantity(item.id) === 0" class="image-btn" @click="addToCart(item)">Add to Cart</button>
+            <div v-else class="edit-btn">
+              <button @click="decreaseQuantity(item)">−</button>
+              <span>{{ getQuantity(item.id) }}</span>
+              <button @click="addToCart(item)">＋</button>
+            </div>
           </div>
 
           <div class="product-info">
             <p class="product-category">{{ item.category}}</p>
             <p class="product-name">{{ item.name }}</p>
             <p class="product-price">${{ item.price.toFixed(2) }}</p>
-            <p v-if="getQuantity(item.id) > 0">
+            <!-- <p v-if="getQuantity(item.id) > 0">
               已加入：{{ getQuantity(item.id) }} 件
-            </p>
+            </p> -->
 
           </div>
         </div>
@@ -33,14 +38,17 @@
   
   <script setup>
   
-  defineProps({
-    products: Array,
-    addToCart: Function,
-    cart: Array
-  })
+  // defineProps({
+  //   products: Array,
+  //   addToCart: Function,
+  //   cart: Array
+  // })
+  const { cart } = defineProps(['products', 'addToCart','decreaseQuantity','cart'])
+
   const getQuantity = (id) => {
-  const item = cart.find((i) => i.id === id)
-  return item ? item.quantity : 0
+    if (!Array.isArray(cart)) return 0;
+    const item = cart.find((i) => i.id === id);
+    return item ? item.quantity : 0;
   }
   </script>
   
@@ -74,6 +82,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: 150px;
+    height:35px;
     background-color: white;
     color: black;
     border: 1px solid black;
@@ -106,6 +115,40 @@
 
   .product-price {
     color: #cc3d3d;
+  }
+  .button-group {
+      margin-top: 10px;
+    }
+
+  .edit-btn {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height:35px;
+    background-color: #c62e20;
+    color: white;
+    border-radius: 30px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+  }
+
+  .edit-btn button {
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius:50%;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    line-height:35px;
+  }
+
+  .edit-btn span {
+    min-width: 20px;
+    text-align: center;
+    font-weight: bold;
   }
 
 
