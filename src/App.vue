@@ -8,6 +8,7 @@
         <li v-for="(item, index) in cart" :key="index">
           {{ item.name }}
           ${{ item.price }}
+          {{ item.quantity }}
         </li>
       </ul>
       <p>總金額：${{ totalPrice }}</p>
@@ -24,11 +25,16 @@ const products = ref(productData)
 const cart = ref([])
 
 const addToCart = (item) => {
-  cart.value.push(item)
+  const existingItem = cart.value.find((cartItem) => cartItem.id === item.id);
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.value.push({ ...item, quantity: 1 });
+  }
 }
 
 const totalPrice = computed(() => {
-  return cart.value.reduce((sum, item) => sum + item.price, 0)
+  return cart.value.reduce((sum, item) => sum + item.price*item.quantity, 0)
 })
 </script>
 
