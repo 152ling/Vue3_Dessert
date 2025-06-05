@@ -5,10 +5,14 @@
     <div class="cart">
       <h2>購物車</h2>
       <ul>
-        <li v-for="(item, index) in cart" :key="index">
+        <li v-for="item in cart" :key="item.id">
           {{ item.name }}
-          ${{ item.price }}
-          {{ item.quantity }}
+          <div style="display:flex;gap:10px;">
+            <p style="color:#ff6f61";>{{ item.quantity }}x</p>
+            <p style="color:#ff6f61";>@ ${{ item.price }}</p>
+            <p>${{ item.price*item.quantity }}</p>
+          </div>
+          
         </li>
       </ul>
       <p>總金額：${{ totalPrice }}</p>
