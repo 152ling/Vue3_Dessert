@@ -12,7 +12,7 @@
               <source :srcset="item.image.desktop" media="(min-width: 1024px)" />
               <source :srcset="item.image.tablet" media="(min-width: 768px)" />
               <source :srcset="item.image.mobile" media="(max-width: 767px)" />
-              <img :src="item.image.thumbnail" :alt="item.name" class="product-image" />
+              <img :src="item.image.thumbnail" :alt="item.name" class="product-image"  :class="{ 'click-product': getQuantity(item.id) > 0 }"/>
             </picture>
             <button v-if="getQuantity(item.id) === 0" class="image-btn" @click="addToCart(item)">
               <img :src="icon_add_cart" alt="">
@@ -72,6 +72,9 @@
   .image-container {
     position: relative;
   }
+  .click-product{
+    border: 2px solid #C83B10;
+  }
 
   .product-image {
     display: block;
@@ -98,8 +101,8 @@
     padding: 0.6em 1.2em;
   }
   .image-btn:hover{
-    border: 1px solid #ff6f61;
-    color:#ff6f61
+    border: 1px solid #C73B0F;
+    color:#C73B0F;
   }
 
   .product-info {
@@ -121,7 +124,7 @@
   }
 
   .product-price {
-    color: #cc3d3d;
+    color: #C83B10;
   }
   .button-group {
       margin-top: 10px;
@@ -134,7 +137,7 @@
     transform: translateX(-50%);
     width: 150px;
     height:35px;
-    background-color: #c62e20;
+    background-color: #C83B10;
     color: white;
     border-radius: 30px;
     display: flex;
