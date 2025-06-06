@@ -14,7 +14,7 @@
       <div v-else>
       <ul>
         <li v-for="item in cart" :key="item.id" class="cart-item">
-          <div>
+          <div class="item-info">
             {{ item.name }}
             <div style="display:flex;gap:10px">
               <p style="color:#ff6f61">{{ item.quantity }}x</p>
@@ -22,8 +22,8 @@
               <p style="color:#533f2a">${{ item.price*item.quantity }}</p>
             </div>
           </div>
-          <div >
-            <button class="remove_icon" @click="removeFromCart(item)">
+          <div class="item-remove">
+            <button class="remove-icon" @click="removeFromCart(item)">
               <svg width="10" height="10" fill="none" viewBox="0 0 10 10"><path fill="#CAAFA7" d="M8.375 9.375 5 6 1.625 9.375l-1-1L4 5 .625 1.625l1-1L5 4 8.375.625l1 1L6 5l3.375 3.375-1 1Z"/></svg>
             </button></div>
         </li>
@@ -111,10 +111,13 @@ const totalquantity = computed(() => {
   padding: 0px;
 }
 .cart-item{
-  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
   border-bottom: 1px solid gray;
 }
-.remove_icon{
+.remove-icon{
   height: 20px;
   width: 20px;
   border: 1.5px solid #CAAFA7 ;
