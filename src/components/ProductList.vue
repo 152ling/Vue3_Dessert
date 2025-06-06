@@ -14,11 +14,21 @@
               <source :srcset="item.image.mobile" media="(max-width: 767px)" />
               <img :src="item.image.thumbnail" :alt="item.name" class="product-image" />
             </picture>
-            <button v-if="getQuantity(item.id) === 0" class="image-btn" @click="addToCart(item)">Add to Cart</button>
+            <button v-if="getQuantity(item.id) === 0" class="image-btn" @click="addToCart(item)">
+              <img :src="icon_add_cart" alt="">
+              Add to Cart</button>
             <div v-else class="edit-btn">
-              <button @click="decreaseQuantity(item)">−</button>
+              <button @click="decreaseQuantity(item)">
+                <svg class="icon" viewBox="0 0 10 2" width="10" height="20" fill="currentColor">
+                  <path d="M0 .375h10v1.25H0V.375Z"/>
+                </svg>
+              </button>
               <span>{{ getQuantity(item.id) }}</span>
-              <button @click="addToCart(item)">＋</button>
+              <button @click="addToCart(item)">
+                <svg class="icon" width="10" height="11" fill="currentColor">
+                  <path d="M10 4.375H5.625V0h-1.25v4.375H0v1.25h4.375V10h1.25V5.625H10v-1.25Z"/>
+                </svg>
+              </button>
             </div>
           </div>
 
@@ -37,14 +47,8 @@
   </template>
   
   <script setup>
-  
-  // defineProps({
-  //   products: Array,
-  //   addToCart: Function,
-  //   cart: Array
-  // })
   const { cart } = defineProps(['products', 'addToCart','decreaseQuantity','cart'])
-
+  import icon_add_cart from '@/assets/images/icon-add-to-cart.svg'
   const getQuantity = (id) => {
     if (!Array.isArray(cart)) return 0;
     const item = cart.find((i) => i.id === id);
@@ -83,12 +87,15 @@
     transform: translateX(-50%);
     width: 150px;
     height:35px;
+    display: flex;
+    justify-content: center;
     background-color: white;
     color: black;
     border: 1px solid black;
     border-radius: 30px;
     cursor: pointer;
     font-size: 14px;
+    padding: 0.6em 1.2em;
   }
   .image-btn:hover{
     border: 1px solid #ff6f61;
@@ -131,20 +138,29 @@
     color: white;
     border-radius: 30px;
     display: flex;
-    justify-content:center;
+    justify-content:space-evenly;
     align-items: center;
   }
-
   .edit-btn button {
     background-color: transparent;
-    border: 1px solid white;
+    border: 1.5px solid white;
     border-radius:50%;
     font-size: 18px;
     color: white;
     cursor: pointer;
-    line-height:35px;
+    height: 20px;
+    width: 20px;
+    line-height:20px;
+    text-align: center;
+    padding: 0;
+  }
+  .edit-btn button:hover{
+    background-color: white;
   }
 
+  .edit-btn button:hover .icon{
+    color:black;
+  }
   .edit-btn span {
     min-width: 20px;
     text-align: center;
