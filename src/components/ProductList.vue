@@ -25,7 +25,7 @@
               </button>
               <span>{{ getQuantity(item.id) }}</span>
               <button @click="addToCart(item)">
-                <svg class="icon" width="10" height="11" fill="currentColor">
+                <svg class="icon" width="10" height="10" fill="currentColor">
                   <path d="M10 4.375H5.625V0h-1.25v4.375H0v1.25h4.375V10h1.25V5.625H10v-1.25Z"/>
                 </svg>
               </button>
@@ -153,8 +153,9 @@
     cursor: pointer;
     height: 20px;
     width: 20px;
-    line-height:20px;
-    text-align: center;
+    display:flex;
+    align-items: center;
+    justify-content: center;
     padding: 0;
   }
   .edit-btn button:hover{
