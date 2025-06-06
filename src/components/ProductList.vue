@@ -1,6 +1,6 @@
 <template>
     <div class="product-list">
-      <h2>Desserts</h2>
+      <h2><b>Desserts</b></h2>
       <div class="product-grid">
       <div
       class="product-item"
